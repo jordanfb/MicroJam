@@ -169,8 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e2045f485c509408a20d486b6cbea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToFix: 3
+  randomRange: 3
+  randomBase: 3
+  guaranteeFixedTime: 10
   chanceOfBreaking: 0.5
+  timeLeftBroken: 0
+  timeSinceFixed: 0
+  particles: {fileID: 268987752}
 --- !u!4 &146349057
 Transform:
   m_ObjectHideFlags: 0
@@ -270,12 +275,12 @@ GameObject:
   - component: {fileID: 268987755}
   - component: {fileID: 268987754}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &268987753
 Transform:
   m_ObjectHideFlags: 0
@@ -349,7 +354,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 735153204
+  randomSeed: -270991505
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3710,8 +3715,8 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4c35891c074a5884b9c0641a4ea8eef4, type: 2}
-  - {fileID: 2100000, guid: 4c35891c074a5884b9c0641a4ea8eef4, type: 2}
+  - {fileID: 2100000, guid: 6dae5ab7f8142304b877d0cc438ce648, type: 2}
+  - {fileID: 2100000, guid: 6dae5ab7f8142304b877d0cc438ce648, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4055,7 +4060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6d68843315fa2a4bb265461f528b25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToBreak: []
+  distanceToRepair: 2
+  zPositionOfLines: 0.5
+  itemsToBreak:
+  - {fileID: 146349055}
   shipCollider: {fileID: 844538628}
   maxSelectDistance: 2
   crew:
@@ -4070,7 +4078,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 668791571}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5620,7 +5628,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1941764001
+  randomSeed: 2119667463
   InitialModule:
     serializedVersion: 3
     enabled: 1

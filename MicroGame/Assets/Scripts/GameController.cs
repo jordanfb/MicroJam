@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
     [SerializeField]
+    private float distanceToRepair = 4;
+
+    [SerializeField]
+    private float zPositionOfLines = 1.5f;
+
+    [SerializeField]
     private Console[] itemsToBreak;
 
     [SerializeField]
@@ -23,6 +29,16 @@ public class GameController : MonoBehaviour {
     Vector2 prevPoint;
     private LineRenderer lineRenderer;
 
+    // these are variables used for trying to balance the game
+    private int numConsoles = 0;
+    private int numConsolesBroken = 0;
+    private int numConsolesBeingRepaired = 0;
+    private int numCrew = 0;
+    private float timeSinceBreak = 0;
+    private int numCrewWorking = 0;
+    private float timeSinceFix = 0;
+    private float gameLength = 0;
+
 	// Use this for initialization
 	void Start () {
 		for (int i = 0; i < crew.Length; i++)
@@ -31,33 +47,64 @@ public class GameController : MonoBehaviour {
         }
         lineRenderer = GetComponent<LineRenderer>();
 
+
+        numConsoles = itemsToBreak.Length;
+        numCrew = crew.Length;
     }
 	
 	// Update is called once per frame
 	void Update () {
+        timeSinceBreak += Time.deltaTime;
+        timeSinceFix += Time.deltaTime;
+        gameLength += Time.deltaTime;
+
         HandleMouseInput();
-        UpdateGame();
+        RepairItems();
+        BreakItems();
 	}
 
-    void UpdateGame()
+    void BreakItems()
     {
-        // break items
+        for (int i = 0; i < itemsToBreak.Length; i++)
+        {
+            if (!itemsToBreak[i].GetBroken() && itemsToBreak[i].timeSinceFixed > itemsToBreak[i].guaranteeFixedTime)
+            {
+                // consider breaking it
+                itemsToBreak[i].SetBroken(); // lol just break it ATM.
+                timeSinceBreak = 0;
+            }
+        }
+    }
+
+    void RepairItems()
+    {
+        numConsolesBroken = 0;
+        numCrewWorking = 0;
+        numConsolesBeingRepaired = 0;
         for (int i = 0; i < itemsToBreak.Length; i++)
         {
             if (itemsToBreak[i].timeLeftBroken > 0)
             {
+                numConsolesBroken++;
                 // check if any person is nearby
+                bool beingRepaired = false;
                 for (int j = 0; j < crew.Length; j++)
                 {
-                    if (crew[j].)
+                    if ((crew[j].transform.position - itemsToBreak[i].transform.position).magnitude <= distanceToRepair)
                     itemsToBreak[i].timeLeftBroken -= Time.deltaTime;
+                    numCrewWorking++;
+                    beingRepaired = true;
                     if (itemsToBreak[i].timeLeftBroken <= 0)
                     {
+                        timeSinceFix = 0;
                         itemsToBreak[i].SetFixed();
                         break;
                     }
                 }
-
+                if (beingRepaired)
+                {
+                    numConsolesBeingRepaired++;
+                }
             }
         }
     }
@@ -90,7 +137,9 @@ public class GameController : MonoBehaviour {
                     currentPathLineRenderer = new List<Vector3>();
                     prevPoint = MousePoint();
                     currentPath.Add(prevPoint);
-                    currentPathLineRenderer.Add(prevPoint);
+                    Vector3 pos = prevPoint; // to get the lines to draw at the correct depth
+                    pos.z = zPositionOfLines;
+                    currentPathLineRenderer.Add(pos);
                     lineRenderer.positionCount = 0;
                     selectedCrewMember.path.Clear();
                     selectedCrewMember.walkingToGoal = false;
@@ -110,7 +159,9 @@ public class GameController : MonoBehaviour {
                 {
                     prevPoint = MousePoint();
                     currentPath.Add(MousePoint());
-                    currentPathLineRenderer.Add(prevPoint);
+                    Vector3 pos = prevPoint; // to get the lines to draw at the correct depth
+                    pos.z = zPositionOfLines;
+                    currentPathLineRenderer.Add(pos);
                     lineRenderer.positionCount = currentPath.Count;
                     lineRenderer.SetPositions(currentPathLineRenderer.ToArray());
                 }

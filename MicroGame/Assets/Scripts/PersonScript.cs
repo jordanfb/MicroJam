@@ -49,8 +49,10 @@ public class PersonScript : MonoBehaviour {
             {
                 dpos.Normalize();
                 dpos *= walkSpeed*Time.deltaTime;
-            } else if (path.Count == 0)
+            } else if (path.Count == 1)
             {
+                // reached the last point on the line
+                path.RemoveAt(0);
                 walkingToGoal = false;
                 animator.SetAnimationState(PersonAnimator.AnimState.Idle);
             } else

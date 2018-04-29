@@ -47,6 +47,7 @@ public class PersonAnimator : MonoBehaviour {
         initialHandsPos = hands.localPosition;
         initialLeftHandPos = leftHand.localPosition;
         initialRightHandPos = rightHand.localPosition;
+        animationTime = Random.value * 5; // randomize the starting time so they aren't in sync
     }
 
     public void RandomizeColor()

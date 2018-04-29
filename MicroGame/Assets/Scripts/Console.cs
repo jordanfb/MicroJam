@@ -8,9 +8,13 @@ public class Console : MonoBehaviour {
     [SerializeField]
     private float randomBase = 3;
     [SerializeField]
+    public float guaranteeFixedTime = 10; // time that it's guaranteed not to be broken for
+
+    [SerializeField]
     private float chanceOfBreaking = .5f; // in 10 seconds, half a chance of breaking I guess?
     private bool broken = false;
     public float timeLeftBroken = 0;
+    public float timeSinceFixed = 0;
     [SerializeField]
     private GameObject particles;
 
@@ -21,35 +25,22 @@ public class Console : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (broken && !particles.activeSelf)
-        {
-            particles.SetActive(true);
-        } else if (!broken && particles.activeSelf)
-        {
-            particles.SetActive(false);
-        }
-
-        /*if (broken)
-        {
-            timeLeftBroken -= Time.deltaTime;
-            if (timeLeftBroken <= 0)
-            {
-                broken = false;
-                particles.SetActive(false);
-            }
-        }*/
-	}
+        timeSinceFixed += Time.deltaTime;
+    }
 
     public void SetBroken()
     {
         // makes this broken
         broken = true;
         timeLeftBroken = Random.value * randomRange + randomBase;
+        particles.SetActive(true);
     }
 
     public void SetFixed()
     {
         broken = false;
+        timeSinceFixed = 0;
+        particles.SetActive(false);
     }
 
     public bool GetBroken()
