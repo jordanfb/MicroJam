@@ -9,17 +9,17 @@ TextureImporter:
     21300004: EyesLarge
     21300006: HandLarge
     21300008: WhiteTile
-    21300010: MicroGameSprites_5
+    21300010: TurnTrack
     21300012: MicroGameSprites_6
     21300014: MicroGameSprites_7
     21300016: MicroGameSprites_8
     21300018: MicroGameSprites_9
-    21300020: HeadSmall
+    21300020: Track
     21300022: MicroGameSprites_11
     21300024: MicroGameSprites_12
     21300026: MicroGameSprites_13
-    21300028: BodySmall
-    21300030: Mouse
+    21300028: EndTrack
+    21300030: Train
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -166,27 +166,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: MicroGameSprites_5
+      name: TurnTrack
       rect:
         serializedVersion: 2
         x: 96
-        y: 80
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: MicroGameSprites_6
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 80
-        width: 16
-        height: 16
+        y: 64
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,13 +222,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: HeadSmall
+      name: Track
       rect:
         serializedVersion: 2
-        x: 80
-        y: 64
-        width: 16
-        height: 16
+        x: 96
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,13 +278,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BodySmall
+      name: EndTrack
       rect:
         serializedVersion: 2
         x: 64
-        y: 48
-        width: 16
-        height: 16
+        y: 32
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,13 +292,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Mouse
+      name: Train
       rect:
         serializedVersion: 2
-        x: 80
-        y: 48
-        width: 16
-        height: 16
+        x: 0
+        y: 0
+        width: 112
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

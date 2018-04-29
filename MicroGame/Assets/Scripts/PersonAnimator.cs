@@ -24,6 +24,9 @@ public class PersonAnimator : MonoBehaviour {
     [SerializeField]
     private Transform rightHand;
 
+    [SerializeField]
+    private SpriteRenderer torsoSprite;
+
     private float animationTime = 0;
     private AnimState state = AnimState.Walking;
     private Vector2 velocity = Vector2.left; // this is used to determine what direction to face etc.
@@ -45,6 +48,11 @@ public class PersonAnimator : MonoBehaviour {
         initialLeftHandPos = leftHand.localPosition;
         initialRightHandPos = rightHand.localPosition;
     }
+
+    public void RandomizeColor()
+    {
+        torsoSprite.color = new Color(Random.value, Random.value, Random.value);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -54,10 +62,11 @@ public class PersonAnimator : MonoBehaviour {
             // torso.localScale = Vector3.one * (Mathf.Sin(animationTime * .4f)*.1f + 1);
             float sin = Mathf.Sin(animationTime * 2f);
             head.localPosition = initialHeadPos + Vector3.right * (sin * .01f);
-            eyes.localPosition = initialEyesPos + Vector3.right * (sin * .01f);
+            eyes.localPosition = initialEyesPos + Vector3.right * (sin * .02f);
             float cos = Mathf.Cos(animationTime * 2f);
-            leftHand.localPosition = initialLeftHandPos + Vector3.up * (cos * .01f);
-            rightHand.localPosition = initialRightHandPos - Vector3.up * (cos * .01f);
+            leftHand.localPosition = initialLeftHandPos + Vector3.up * (cos * .02f);
+            rightHand.localPosition = initialRightHandPos - Vector3.up * (cos * .02f);
+            hands.localPosition = initialHandsPos;
         }
         else if (state == AnimState.Walking)
         {
@@ -97,8 +106,6 @@ public class PersonAnimator : MonoBehaviour {
             initialHandsPos.z = Mathf.Abs(initialHandsPos.z);
             initialLeftHandPos.z = Mathf.Abs(initialLeftHandPos.z);
             initialRightHandPos.z = Mathf.Abs(initialRightHandPos.z);
-
-
         }
         else
         {
@@ -117,6 +124,7 @@ public class PersonAnimator : MonoBehaviour {
         state = stateIn;
         if (stateIn == AnimState.Idle || stateIn == AnimState.Fiddling)
         {
+            Debug.Log("Set facing down idle fiddling");
             SetFacingDown(true);
         }
     }
